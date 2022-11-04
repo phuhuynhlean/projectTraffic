@@ -25,7 +25,7 @@ def sum(array):
   return result
 
 def getTraffic(date, destination):
-  f = open('runs/detect/'+date+'.txt','r')
+  f = open('traffic/'+date+'.txt','r')
   cars = []
   giants = []
   bikes = []
