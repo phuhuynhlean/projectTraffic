@@ -33,7 +33,7 @@ def graphTraffic(date,destination):
   df1 = df1[['time', 'traffic-flow']].groupby('time').sum()
   print(df1)
   df1.plot(kind='line', legend=True, ax=ax1)
-  ax1.set_title('Traffic flow distribution')
+  ax1.set_title('Traffic flow distribution at '+ destination+ " on "+ date)
 
 def onClick():
   messagebox.showwarning("HEY","Nobody has coded this part")
