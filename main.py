@@ -16,7 +16,7 @@ def init_window():
   window.configure(bg='white')
   window.title("Traffic App")
   window.geometry("1000x600")
-  p1 = PhotoImage(file = 'data/images/traffic-app-icon.png')
+  p1 = PhotoImage(file = 'traffic/traffic-app-icon.png')
   window.iconphoto(False, p1)
   return window
 
