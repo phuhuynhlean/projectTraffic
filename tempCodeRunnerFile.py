@@ -1,2 +1,2 @@
-):
-  #   continue
+
+txtB = tk.Text(bg="#eeeeee")
