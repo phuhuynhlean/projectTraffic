@@ -42,7 +42,7 @@ def getTraffic(date, destination):
     time = meta.split('-')[1]
     time = time.split('.')[0]
     time = time.split('_')
-    if (location != destination):
+    if (location != destination) and (destination != "all"):
       continue
 
     for i in range(0,len(time)):
@@ -66,5 +66,5 @@ def getTraffic(date, destination):
   vehicles =[cars,giants,bikes]
   return vehicles
 
-a = getTraffic('31-10','loc09')
-print(a)
+# a = getTraffic('31-10','loc08')
+# print(a)

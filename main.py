@@ -21,10 +21,11 @@ def init_window():
   return window
 
 def graphTraffic(date,destination):
-  label = ['8:00\n-9:00', '9:00\n-10:00', '10:00\n-11:00', '11:00\n-12:00', '12:00\n-13:00','13:00\n-14:00','14:00\n-15:00','15:00\n-16:00','16:00\n-17:00']
+  label = ['08:00\n-9:00', '09:00\n-10:00', '10:00\n-11:00', '11:00\n-12:00', '12:00\n-13:00','13:00\n-14:00','14:00\n-15:00','15:00\n-16:00','16:00\n-17:00']
   data = getTraffic(date, destination)[0]
   df1_data = {'time': label,  'traffic-flow': data }
   df1 = pd.DataFrame(df1_data)
+  print(df1)
 
   figure1 = plt.Figure(figsize=(6,4), dpi=100)
   ax1 = figure1.add_subplot(111)
@@ -74,6 +75,6 @@ drop.pack()
 button = tk.Button(text = "Graph", command= onClick )
 button.place(x=5,y=125,width=100,height=50)
 
-graphTraffic('31-10','loc08')
+graphTraffic('30-10','all')
 
 window.mainloop()
