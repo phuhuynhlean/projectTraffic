@@ -51,7 +51,7 @@ def capture(path):
         headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36"}
         #Save image
         print("Loop",count,"Traffic captured at", time.ctime())
-        k = 'data/images/06-11/' + f'{path[0]}-{time.strftime("%Y_%m_%d_%H_%M_%S")}.jpg'
+        k = 'data/images/12-11/' + f'{path[0]}-{time.strftime("%Y_%m_%d_%H_%M_%S")}.jpg'
         print(k)
         with open(k, 'wb') as f:
             f.write(requests.get(url, headers=headers).content)
