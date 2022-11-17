@@ -34,6 +34,7 @@ def graphTraffic(date,destination):
   df1 = df1[['time', 'traffic-flow']].groupby('time').sum()
   print(df1)
   df1.plot(kind='line', legend=True, ax=ax1)
+  ax1.set_ylim(ymin=0, ymax = max(data)*1.2)
   ax1.set_title('Traffic flow distribution at '+ destination+ " on "+ date)
 
 def onClick():
@@ -75,6 +76,6 @@ drop.pack()
 button = tk.Button(text = "Graph", command= onClick )
 button.place(x=5,y=125,width=100,height=50)
 
-graphTraffic('30-10','all')
+graphTraffic('15-11','loc09')
 
 window.mainloop()
