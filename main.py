@@ -36,22 +36,30 @@ def graphTraffic(date,destination):
   df1.plot(kind='line', legend=True, ax=ax1)
   ax1.set_ylim(ymin=0, ymax = max(data)*1.2)
   ax1.set_title('Traffic flow distribution at '+ destination+ " on "+ date)
+def get_content(entry):
+  content='0'
+  content=entry.get()
+  return str(content)
 
 def onClick():
-  messagebox.showwarning("HEY","Nobody has coded this part")
+  date='0'
+  loc='loc'
+  date=get_content(txt_date)
+  loc=get_content(txt_loc)
+  graphTraffic(date,loc) 
 
 window = init_window()
 
 label_date = tk.Label(text="Date: ",bg="white")
 label_date.place(x=5,y=35,width=100,height=30)
 
-txt_date = tk.Text(bg="#eeeeee")
+txt_date = tk.Entry(bg="#eeeeee")
 txt_date.place(x=95,y=35,width = 100,height=30)
 
 label_loc = tk.Label(text="Location: ",bg="white")
 label_loc.place(x=5,y=95,width=100,height=30)
 
-txt_loc = tk.Text(bg="#eeeeee")
+txt_loc = tk.Entry(bg="#eeeeee")
 txt_loc.place(x=95,y=95,width = 100,height=30)
 
 
@@ -76,6 +84,6 @@ drop.pack()
 button = tk.Button(text = "Graph", command= onClick )
 button.place(x=5,y=125,width=100,height=50)
 
-graphTraffic('15-11','loc09')
+
 
 window.mainloop()
