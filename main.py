@@ -16,7 +16,7 @@ def init_window():
   window = tk.Tk()
   window.configure(bg='white')
   window.title("Traffic App")
-  window.geometry("1200x800")
+  window.geometry("1000x700")
   p1 = PhotoImage(file = 'traffic/traffic-app-icon.png')
   window.iconphoto(False, p1)
   return window
@@ -25,27 +25,29 @@ def init_window():
 def graphTraffic(date,destination):
   global ax1
   global count
-  global w
+  global graph_pointer
   if (count == 1):
     ax1.clear()
-    w.destroy()
+    graph_pointer.destroy()
   figure1 = plt.Figure(figsize=(6,4), dpi=100)
   
   figure1.clf()
   ax1 = figure1.add_subplot(111)
   label = ['08:00\n-9:00', '09:00\n-10:00', '10:00\n-11:00', '11:00\n-12:00', '12:00\n-13:00','13:00\n-14:00','14:00\n-15:00','15:00\n-16:00','16:00\n-17:00']
-  data = getTraffic(date, destination)[0]
-  df1_data = {'time': label,  'traffic-flow': data }
+  bike = getTraffic(date, destination)[0]
+  car = getTraffic(date, destination)[1]
+  truck = getTraffic(date, destination)[2]
+  df1_data = {'time': label,  'bike': bike, 'car': car, 'truck': truck }
   df1 = pd.DataFrame(df1_data)
   print(df1)
 
-  bar1 = FigureCanvasTkAgg(figure1, window)
-  bar1.get_tk_widget().pack(side=tk.RIGHT, fill=tk.NONE)
-  w = bar1.get_tk_widget()
-  w.pack(side=tk.RIGHT, fill=tk.NONE) 
-  df1 = df1[['time', 'traffic-flow']].groupby('time').sum()
+  graph = FigureCanvasTkAgg(figure1, window)
+  graph_pointer = graph.get_tk_widget()
+  graph_pointer.pack(side=tk.RIGHT, fill=tk.BOTH,pady=20) 
+  df1 = df1[['time', 'bike','car','truck']].groupby('time').sum()
   df1.plot(kind='line', legend=True, ax=ax1)
-  ax1.set_ylim(ymin=0, ymax = max(data)*1.2)
+  maximum = max(max(bike),max(truck),max(car))
+  ax1.set_ylim(ymin=0, ymax = maximum*1.1)
   ax1.set_title('Traffic flow distribution at '+ destination + " on "+ date)
   count = 1
 
@@ -62,7 +64,7 @@ def onClick():
 window = init_window()
 ax1 = 0
 count = 0
-w = 0
+graph_pointer = 0
 
 label_date = tk.Label(text="Date: ",bg="white")
 label_date.place(x=5,y=35,width=100,height=30)
