@@ -8,6 +8,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from ctypes import windll
+import time
 
 def init_window():
   windll.shcore.SetProcessDpiAwareness(1)
@@ -15,40 +16,53 @@ def init_window():
   window = tk.Tk()
   window.configure(bg='white')
   window.title("Traffic App")
-  window.geometry("1000x600")
+  window.geometry("1200x800")
   p1 = PhotoImage(file = 'traffic/traffic-app-icon.png')
   window.iconphoto(False, p1)
   return window
 
+
 def graphTraffic(date,destination):
+  global ax1
+  global count
+  global w
+  if (count == 1):
+    ax1.clear()
+    w.destroy()
+  figure1 = plt.Figure(figsize=(6,4), dpi=100)
+  
+  figure1.clf()
+  ax1 = figure1.add_subplot(111)
   label = ['08:00\n-9:00', '09:00\n-10:00', '10:00\n-11:00', '11:00\n-12:00', '12:00\n-13:00','13:00\n-14:00','14:00\n-15:00','15:00\n-16:00','16:00\n-17:00']
   data = getTraffic(date, destination)[0]
   df1_data = {'time': label,  'traffic-flow': data }
   df1 = pd.DataFrame(df1_data)
   print(df1)
 
-  figure1 = plt.Figure(figsize=(6,4), dpi=100)
-  ax1 = figure1.add_subplot(111)
   bar1 = FigureCanvasTkAgg(figure1, window)
   bar1.get_tk_widget().pack(side=tk.RIGHT, fill=tk.NONE)
+  w = bar1.get_tk_widget()
+  w.pack(side=tk.RIGHT, fill=tk.NONE) 
   df1 = df1[['time', 'traffic-flow']].groupby('time').sum()
-  print(df1)
   df1.plot(kind='line', legend=True, ax=ax1)
   ax1.set_ylim(ymin=0, ymax = max(data)*1.2)
-  ax1.set_title('Traffic flow distribution at '+ destination+ " on "+ date)
+  ax1.set_title('Traffic flow distribution at '+ destination + " on "+ date)
+  count = 1
+
 def get_content(entry):
-  content='0'
   content=entry.get()
   return str(content)
 
 def onClick():
-  date='0'
-  loc='loc'
   date=get_content(txt_date)
   loc=get_content(txt_loc)
   graphTraffic(date,loc) 
 
+
 window = init_window()
+ax1 = 0
+count = 0
+w = 0
 
 label_date = tk.Label(text="Date: ",bg="white")
 label_date.place(x=5,y=35,width=100,height=30)
@@ -78,8 +92,8 @@ options = [
 clicked = StringVar()
 clicked.set( "Monday" )
 drop = OptionMenu( window , clicked , *options )
-drop.place(x=95, y=125, width = 100,height=30)
-drop.pack()
+# drop.place(x=95, y=25, width = 100,height=30)
+# drop.pack()
 
 button = tk.Button(text = "Graph", command= onClick )
 button.place(x=5,y=125,width=100,height=50)
