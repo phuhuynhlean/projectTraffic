@@ -7,16 +7,18 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
-# path_quoclo1    = ["loc01","quoclo1-buithanhkhiet","http://giaothong.hochiminhcity.gov.vn/render/ImageHandler.ashx?id=58afea5dbd82540010390c4d&t=1667011700842"]
-# path_vovankiet  = ["loc02","vovankiet-caovanlau","http://giaothong.hochiminhcity.gov.vn:80/render/ImageHandler.ashx?id=56de42f611f398ec0c481296&t=1666752019191"]
-# path_cauphumi   = ["loc03","vochicong-cauphumi","http://giaothong.hochiminhcity.gov.vn/render/ImageHandler.ashx?id=5aab1f852d266a0017e5afd4&t=1667013794895"]
-# path_binhtrieu  = ["loc04","quoclo13-phamvandong","http://giaothong.hochiminhcity.gov.vn/render/ImageHandler.ashx?id=58affc6017139d0010f35cc8"]
-# path_caotocLTDG = ["loc05"1,"caotocLTDG-doxuanhop","http://giaothong.hochiminhcity.gov.vn/render/ImageHandler.ashx?id=5d9de43b766c880017188cb6&t=1667014633438"]
-# path_quoclo22   = ["loc06","quoclo22-giaphai","http://giaothong.hochiminhcity.gov.vn/render/ImageHandler.ashx?id=589b4379b3bf7600110283c9"]
-# path_binhphuoc  = ["loc07","quoclo13-quoclo1","http://giaothong.hochiminhcity.gov.vn/render/ImageHandler.ashx?id=5874656eb807da0011e33cde&t=1667015665586"]
-# path_linhxuan   = ["loc08","khavancan-quoclo1","http://giaothong.hochiminhcity.gov.vn/render/ImageHandler.ashx?id=58746314b807da0011e33cce&t=1667015860315"]
-# path_vothisau   = ["loc09","vothisau-dinhtienhoang","http://giaothong.hochiminhcity.gov.vn/render/ImageHandler.ashx?id=5a823e425058170011f6eaa4"]
-
+locationDict = {
+  "loc01":"Highway A1 - Bui Thanh Khiet Intersection",
+  "loc02":"Vo Van Kiet - Cao Van Lau Intersection",
+  "loc03":"Phu Mi Bridge (Vo Chi Cong)",
+  "loc04":"Binh Trieu Intersection (Highway 13)",
+  "loc05":"Long Thanh - Dau Giay Expressway",
+  "loc06":"Highway 22 - Gia Phai Intersection",
+  "loc07":"Binh Phuoc Intersection (Highway 13)",
+  "loc08":"Linh Xuan Intersection (Highway A1)",
+  "loc09":"Cau Bong Intersection",
+  "all":"all locations"
+}
 
 def sum(array):
   result = 0
@@ -63,6 +65,15 @@ def getTraffic(date, destination):
   print(cars)
   print(giants)
   print(bikes)
+  # for i in range(0,len(cars)):
+  #   if cars[i] == 0:
+  #     cars[i] = (cars[i-1]+cars[i+1])/2
+  # for i in range(0,len(giants)):
+  #   if giants[i] == 0:
+  #     giants[i] = (giants[i-1]+giants[i+1])/2
+  # for i in range(0,len(bikes)):
+  #   if bikes[i] == 0:
+  #     bikes[i] = (bikes[i-1]+bikes[i+1])/2
   vehicles =[cars,giants,bikes]
   return vehicles
 

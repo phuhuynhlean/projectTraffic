@@ -16,7 +16,7 @@ def init_window():
   window = tk.Tk()
   window.configure(bg='white')
   window.title("Traffic App")
-  window.geometry("1000x700")
+  window.geometry("1200x800")
   p1 = PhotoImage(file = 'traffic/traffic-app-icon.png')
   window.iconphoto(False, p1)
   return window
@@ -34,21 +34,21 @@ def graphTraffic(date,destination):
   figure1.clf()
   ax1 = figure1.add_subplot(111)
   label = ['08:00\n-9:00', '09:00\n-10:00', '10:00\n-11:00', '11:00\n-12:00', '12:00\n-13:00','13:00\n-14:00','14:00\n-15:00','15:00\n-16:00','16:00\n-17:00']
-  bike = getTraffic(date, destination)[0]
+  truck = getTraffic(date, destination)[0]
   car = getTraffic(date, destination)[1]
-  truck = getTraffic(date, destination)[2]
+  bike = getTraffic(date, destination)[2]
   df1_data = {'time': label,  'bike': bike, 'car': car, 'truck': truck }
   df1 = pd.DataFrame(df1_data)
   print(df1)
 
   graph = FigureCanvasTkAgg(figure1, window)
   graph_pointer = graph.get_tk_widget()
-  graph_pointer.pack(side=tk.RIGHT, fill=tk.BOTH,pady=20) 
+  graph_pointer.pack(side=tk.RIGHT, fill=tk.BOTH,pady=50) 
   df1 = df1[['time', 'bike','car','truck']].groupby('time').sum()
   df1.plot(kind='line', legend=True, ax=ax1)
   maximum = max(max(bike),max(truck),max(car))
   ax1.set_ylim(ymin=0, ymax = maximum*1.1)
-  ax1.set_title('Traffic flow distribution at '+ destination + " on "+ date)
+  ax1.set_title('Traffic at '+ locationDict[destination] + " ("+ date+")")
   count = 1
 
 def get_content(entry):
