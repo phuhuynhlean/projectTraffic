@@ -77,8 +77,8 @@ date = [
   "31-10"
 ]
 
-title = tk.Label(text="Real-time Traffic Capture", font=("Arial",32),bg='white',fg='red')
-title.place(x=200, y = 10)
+title = tk.Label(text="Traffic Capture at Ho Chi Minh City", font=("Arial",24),bg='white',fg='#aa1111')
+title.place(x=200, y = 40)
 
 label_date = tk.Label(text="Date: ",bg="white")
 label_date.place(x=5,y=135,width=100,height=30)

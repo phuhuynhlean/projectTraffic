@@ -5,6 +5,8 @@ from tkinter.ttk import *
 import matplotlib.pyplot as plt
 import pandas as pd
 import matplotlib.pyplot as plt
+import glob
+import os
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 locationDict = {
@@ -77,5 +79,14 @@ def getTraffic(date, destination):
   vehicles =[cars,giants,bikes]
   return vehicles
 
-# a = getTraffic('31-10','loc08')
-# print(a)
+def getDate():
+  # Getting the current work directory (cwd)
+  thisdir = os.getcwd()
+
+  # r=root, d=directories, f = files
+  for r, d, f in os.walk(thisdir+"\\traffic"):
+      for file in f:
+          if file.endswith(".txt"):
+              print(file.strip('.txt'))
+
+getDate()
