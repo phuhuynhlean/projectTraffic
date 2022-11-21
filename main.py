@@ -50,11 +50,6 @@ txt_date.place(x=95,y=35,width = 100,height=30)
 label_loc = tk.Label(text="Location: ",bg="white")
 label_loc.place(x=5,y=95,width=100,height=30)
 
-txt_loc = tk.Text(bg="#eeeeee")
-txt_loc.place(x=95,y=95,width = 100,height=30)
-
-
-# Dropdown menu options
 options = [
     "loc01",
     "loc02",
@@ -69,8 +64,11 @@ options = [
 clicked = StringVar()
 clicked.set( "Monday" )
 drop = OptionMenu( window , clicked , *options )
-drop.place(x=95, y=125, width = 100,height=30)
+drop.place(x=5, y=95, width = 100,height=30)
 drop.pack()
+
+# Dropdown menu options
+
 
 button = tk.Button(text = "Graph", command= onClick )
 button.place(x=5,y=125,width=100,height=50)
