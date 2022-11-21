@@ -16,7 +16,7 @@ def init_window():
     window = tk.Tk()
     window.configure(bg='white')
     window.title("Traffic App")
-    window.geometry("1000x850")
+    window.geometry("1100x850")
     p1 = PhotoImage(file = 'traffic/traffic-app-icon.png')
     window.iconphoto(False, p1)
     return window
@@ -33,21 +33,21 @@ def graphTraffic(date,destination):
   figure1.clf()
   ax1 = figure1.add_subplot(111)
   label = ['08:00\n-9:00', '09:00\n-10:00', '10:00\n-11:00', '11:00\n-12:00', '12:00\n-13:00','13:00\n-14:00','14:00\n-15:00','15:00\n-16:00','16:00\n-17:00']
-  truck = getTraffic(date, destination)[0]
-  car = getTraffic(date, destination)[1]
+  car = getTraffic(date, destination)[0]
+  truck = getTraffic(date, destination)[1]
   bike = getTraffic(date, destination)[2]
-  df1_data = {'time': label,  'bike': bike, 'car': car, 'truck': truck }
+  df1_data = {'time': label,  'bike': bike, 'car': car, 'giant': truck }
   df1 = pd.DataFrame(df1_data)
   print(df1)
 
   graph = FigureCanvasTkAgg(figure1, window)
   graph_pointer = graph.get_tk_widget()
   graph_pointer.pack(side=tk.RIGHT, fill=tk.BOTH,pady=100) 
-  df1 = df1[['time', 'bike','car','truck']].groupby('time').sum()
+  df1 = df1[['time', 'bike','car','giant']].groupby('time').sum()
   df1.plot(kind='line', legend=True, ax=ax1)
   maximum = max(max(bike),max(truck),max(car))
   ax1.set_ylim(ymin=0, ymax = maximum*1.1)
-  ax1.set_title('Traffic at '+ locationDict[destination] + " ("+ date+")")
+  ax1.set_title('Traffic at '+ locationDict[destination] + " ["+ date+"]")
   count = 1
 
 def get_content(entry):
@@ -67,37 +67,29 @@ graph_pointer = 0
 
 # location option
 location = list(locationDict.keys())
-date = [
-  "01-11",
-  "12-11",
-  "13-11",
-  "14-11",
-  "15-11",
-  "30-10",
-  "31-10"
-]
+date = getDate()
 
 title = tk.Label(text="Traffic Capture at Ho Chi Minh City", font=("Arial",24),bg='white',fg='#aa1111')
 title.place(x=200, y = 40)
 
-label_date = tk.Label(text="Date: ",bg="white")
-label_date.place(x=5,y=135,width=100,height=30)
+label_date = tk.Label(text="Date: ",bg="white",anchor="e")
+label_date.place(x=5,y=155,width=90,height=30)
+
 clicked_date = StringVar()
-clicked_date.set(location[0])
-drop_date = OptionMenu(window,clicked_date,*date)
-drop_date.place(x=95,y=135,width = 100,height=30)
+clicked_date.set('Select the date')
+drop_date = tk.OptionMenu(window,clicked_date,*date)
+drop_date.place(x=95,y=155,width = 200,height=30)
 
-label_loc = tk.Label(text="Location: ",bg="white")
-label_loc.place(x=5,y=195,width=100,height=30)
+label_loc = tk.Label(text="Location: ",bg="white",anchor="e")
+label_loc.place(x=5,y=205,width=90,height=30)
 
-clicked_loc = StringVar()
-clicked_loc.set(location[0])
-drop_loc = OptionMenu(window,clicked_loc,*location)
-drop_loc.place(x=95,y=195,width = 100,height=30)
-
-
+clicked_loc = StringVar(window)
+clicked_loc.set('Select the location')
+drop_loc = tk.OptionMenu(window,clicked_loc,*location)
+drop_loc.place(x=95,y=205,width = 200,height=30)
 
 button = tk.Button(text = "Graph", command= onClick )
-button.place(x=65,y=285,width=100,height=50)
+button.place(x=95,y=255,width=200,height=30)
+graphTraffic("12-11","all")
 
 window.mainloop()

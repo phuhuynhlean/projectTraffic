@@ -67,26 +67,16 @@ def getTraffic(date, destination):
   print(cars)
   print(giants)
   print(bikes)
-  # for i in range(0,len(cars)):
-  #   if cars[i] == 0:
-  #     cars[i] = (cars[i-1]+cars[i+1])/2
-  # for i in range(0,len(giants)):
-  #   if giants[i] == 0:
-  #     giants[i] = (giants[i-1]+giants[i+1])/2
-  # for i in range(0,len(bikes)):
-  #   if bikes[i] == 0:
-  #     bikes[i] = (bikes[i-1]+bikes[i+1])/2
   vehicles =[cars,giants,bikes]
   return vehicles
 
 def getDate():
-  # Getting the current work directory (cwd)
+  date = []
   thisdir = os.getcwd()
-
-  # r=root, d=directories, f = files
   for r, d, f in os.walk(thisdir+"\\traffic"):
       for file in f:
           if file.endswith(".txt"):
-              print(file.strip('.txt'))
+              date.append(file.strip('.txt'))
+  return date
 
-getDate()
+print(getDate())
