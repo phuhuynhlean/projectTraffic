@@ -9,6 +9,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from ctypes import windll
 import time
 from modules.trafficGraph import *
+import numpy as np
 
 locationDict = {
   "loc01":"Highway A1 - Bui Thanh Khiet Intersection",
@@ -52,6 +53,7 @@ def graphTraffic(date,destination):
   df1_data = {'time': label,  'bike': bike, 'car': car, 'giant': truck }
   df1 = pd.DataFrame(df1_data)
   print(df1)
+  data_analyzing(date, destination)
 
   graph = FigureCanvasTkAgg(figure1, window)
   graph_pointer = graph.get_tk_widget()
@@ -63,6 +65,56 @@ def graphTraffic(date,destination):
   ax1.set_title('Traffic at '+ locationDict[destination] + " ["+ date+"]")
   count = 1
 
+def data_analyzing(date, destination):
+
+  car = getTraffic(date, destination)[0]
+  truck = getTraffic(date, destination)[1]
+  bike = getTraffic(date, destination)[2]
+
+  # Mean
+  car_Mean = np.mean(car)
+  bike_Mean = np.mean(bike)
+  truck_Mean = np.mean(truck)
+  Mean = [car_Mean, bike_Mean, truck_Mean]
+
+  # Median
+  car_Median = np.median(car)
+  bike_Median = np.median(bike)
+  truck_Median = np.median(truck)
+  Median = [car_Median, bike_Median, truck_Median]
+
+  # Mode
+  car_Mode = max(set(car), key = car.count)
+  bike_Mode = max(set(bike), key = bike.count)
+  truck_Mode = max(set(truck), key = truck.count)
+  Mode = [car_Mode, bike_Mode, truck_Mode]
+
+  # Standard Deviation
+  car_Std = np.std(car)
+  bike_Std = np.std(bike)
+  truck_Std = np.std(truck)
+  Std = [car_Std, bike_Std, truck_Std]
+
+  # Variance
+  car_Var = np.var(car)
+  bike_Var = np.var(bike)
+  truck_Var = np.var(truck)
+  Var = [car_Var, bike_Var, truck_Var]
+
+  # Range
+  car_Range = max(car) - min(car)
+  bike_Range = max(bike) - min(bike)
+  truck_Range = max(truck) - min(truck)
+  Range = [car_Range, bike_Range, truck_Range]
+
+  # Percentile
+  car_Percentile = np.percentile(car, 75)
+  bike_Percentile = np.percentile(bike, 75)
+  truck_Percentile = np.percentile(truck, 75)
+  Percentile = [car_Percentile, bike_Percentile, truck_Percentile]
+
+
+  print(Percentile)
 def get_content(entry):
     content=entry.get()
     return str(content)
