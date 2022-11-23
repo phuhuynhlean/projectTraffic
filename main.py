@@ -30,7 +30,7 @@ def init_window():
     window = tk.Tk()
     window.configure(bg='white')
     window.title("Traffic App")
-    window.geometry("1100x850")
+    window.geometry("1920x1200")
     p1 = PhotoImage(file = 'traffic/traffic-app-icon.png')
     window.iconphoto(False, p1)
     return window
@@ -64,6 +64,10 @@ def graphTraffic(date,destination):
   ax1.set_ylim(ymin=0, ymax = maximum*1.1)
   ax1.set_title('Traffic at '+ locationDict[destination] + " ["+ date+"]")
   count = 1
+  text = Text(window, height=2, width=30)
+  text.insert(INSERT,"Hello")
+  text.place(x=2*window.winfo_screendepth()/3,y=2*window.winfo_screenheight()/4)
+
 
 def data_analyzing(date, destination):
 
@@ -71,25 +75,25 @@ def data_analyzing(date, destination):
   truck = getTraffic(date, destination)[1]
   bike = getTraffic(date, destination)[2]
 
-  # Mean
+  # Mean: Average vehicles at any moment 
   car_Mean = np.mean(car)
   bike_Mean = np.mean(bike)
   truck_Mean = np.mean(truck)
   Mean = [car_Mean, bike_Mean, truck_Mean]
 
-  # Median
+  # Median: The middle value of the set of vehicles
   car_Median = np.median(car)
   bike_Median = np.median(bike)
   truck_Median = np.median(truck)
   Median = [car_Median, bike_Median, truck_Median]
 
   # Mode
-  car_Mode = max(set(car), key = car.count)
-  bike_Mode = max(set(bike), key = bike.count)
-  truck_Mode = max(set(truck), key = truck.count)
-  Mode = [car_Mode, bike_Mode, truck_Mode]
+  # car_Mode = max(set(car), key = car.count)
+  # bike_Mode = max(set(bike), key = bike.count)
+  # truck_Mode = max(set(truck), key = truck.count)
+  # Mode = [car_Mode, bike_Mode, truck_Mode]
 
-  # Standard Deviation
+  # Standard Deviation: The amount of vehicles that varies from the mean.
   car_Std = np.std(car)
   bike_Std = np.std(bike)
   truck_Std = np.std(truck)
@@ -101,20 +105,26 @@ def data_analyzing(date, destination):
   truck_Var = np.var(truck)
   Var = [car_Var, bike_Var, truck_Var]
 
-  # Range
+  # Range: The difference between the highest and lowest number of vehicles
   car_Range = max(car) - min(car)
   bike_Range = max(bike) - min(bike)
   truck_Range = max(truck) - min(truck)
   Range = [car_Range, bike_Range, truck_Range]
 
-  # Percentile
+  # Percentile: 75% of the time the number of vehicles is less than this number
   car_Percentile = np.percentile(car, 75)
   bike_Percentile = np.percentile(bike, 75)
   truck_Percentile = np.percentile(truck, 75)
   Percentile = [car_Percentile, bike_Percentile, truck_Percentile]
 
+  # Correlation: The relationship between two variables
+  # car_Correlation = np.corrcoef(car, truck)[1][0]
+  # bike_Correlation = np.corrcoef(bike, truck)[1][0]
+  # truck_Correlation = np.corrcoef(truck, truck)[1][0]
+  # Correlation = [car_Correlation, bike_Correlation, truck_Correlation]
+  print()
 
-  print(Percentile)
+
 def get_content(entry):
     content=entry.get()
     return str(content)
