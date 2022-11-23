@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
 from tkinter.ttk import *
+from tkinter import ttk
 import matplotlib.pyplot as plt
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -32,6 +33,16 @@ def init_window():
     window.geometry("1100x850")
     p1 = PhotoImage(file = 'traffic/traffic-app-icon.png')
     window.iconphoto(False, p1)
+    tabControl = ttk.Notebook(window)
+
+    tab1=ttk.Frame(tabControl)
+    tab2=ttk.Frame(tabControl)
+
+    tabControl.add(tab1, text='Daily')
+    tabControl.add(tab2, text='Weekly')
+    tabControl.pack(expand=1, fill="both")
+
+
     return window
 
 def graphTraffic(date,destination):
@@ -77,6 +88,8 @@ window = init_window()
 ax1 = 0
 count = 0
 graph_pointer = 0
+
+
 
 # location option
 location = list(locationDict.keys())
