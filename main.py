@@ -66,7 +66,7 @@ def graphTraffic(date,destination):
   count = 1
   text = Text(window, height=2, width=30)
   text.insert(INSERT,"Hello")
-  text.place(x=2*window.winfo_screendepth()/3,y=2*window.winfo_screenheight()/4)
+  text.place(x=window.winfo_screenwidth()/21,y=2*window.winfo_screenheight()/5)
 
 
 def data_analyzing(date, destination):
