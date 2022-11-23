@@ -30,9 +30,11 @@ def init_window():
     window.configure(bg='white')
     window.title("Traffic App")
     window.geometry("1100x850")
-    p1 = PhotoImage(file = 'traffic/traffic-app-icon.png')
+    p1 = PhotoImage(file = 'traffic/car-icon.png')
     window.iconphoto(False, p1)
-    return window
+    button_quit = Button(window, text="Exit Program", command=window.quit)
+    button_quit.place(x=4,y=800,width = 100,height=50)
+
 
 def graphTraffic(date,destination):
   global ax1
