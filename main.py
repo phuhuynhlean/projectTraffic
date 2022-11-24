@@ -51,7 +51,7 @@ def init_window():
   label1.image = test
 
   #Position image1
-  label1.place(x=900, y=800)
+  label1.place(x=900, y=840)
 
   tab1=tk.Frame(tabControl, background="white")
   tab2=tk.Frame(tabControl, background="white")
@@ -177,7 +177,7 @@ date = getDate()
 
 # title = tk.Label(text="Traffic Capture at Ho Chi Minh City", font=("Roboto",25),bg='white',fg='#aa1111')
 # title.place(x = 200, y = 40)
-text = Label(text="Traffic Capture at Ho Chi Minh City", font=("Roboto", 25, "bold"), fg='blue', background="white")
+text = Label(text="Traffic Capture at Ho Chi Minh City", font=("Roboto", 25, "bold"), fg='red', background="white")
 text.place(x = 220, y = 40)
 
 
