@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from ctypes import windll
 import time
+from PIL import ImageTk,Image
 from modules.trafficGraph import *
 import numpy as np
 
@@ -33,9 +34,13 @@ def init_window():
     window.geometry("1100x850")
     p1 = PhotoImage(file = 'traffic/traffic-app-icon.png')
     window.iconphoto(False, p1)
-    button_quit = Button(window, text="Exit Program", command=window.quit)
-    button_quit.place(x=4,y=800,width = 100,height=50)
+    # # Define Image
+    # bg = PhotoImage(file="traffic/test_picture.png")
+    # # #Create a label
+    # my_label = Label(window, image=bg)
+    # my_label.place(x=0, y=0, relwidth=1, relheight=1)
 
+    return window
 
 def graphTraffic(date,destination):
   global ax1
