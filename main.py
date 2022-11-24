@@ -71,9 +71,7 @@ def graphTraffic(date,destination):
   ax1.set_ylim(ymin=0, ymax = maximum*1.1)
   ax1.set_title('Traffic at '+ locationDict[destination] + " ["+ date+"]")
   count = 1
-  text = Text(window, height=2, width=30)
-  text.insert(INSERT,"Hello")
-  text.place(x=window.winfo_screenwidth()/21,y=2*window.winfo_screenheight()/5)
+  
 
 
 def data_analyzing(date, destination):
