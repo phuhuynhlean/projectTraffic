@@ -12,6 +12,8 @@ import time
 from modules.trafficGraph import *
 from modules.dashboard import *
 import numpy as np
+from PIL import Image, ImageTk
+import PIL
 
 
 locationDict = {
@@ -39,6 +41,17 @@ def init_window():
   p1 = PhotoImage(file = 'traffic/traffic-app-icon.png')
   window.iconphoto(False, p1)
   tabControl = ttk.Notebook(window)
+  
+  #image1
+  image1 = PIL.Image.open("traffic/VGU.png")
+  new_image1 = image1.resize((150, 150), PIL.Image.ANTIALIAS)
+  test = ImageTk.PhotoImage(new_image1)
+
+  label1 = ttk.Label(image=test)
+  label1.image = test
+
+  #Position image1
+  label1.place(x=900, y=800)
 
   tab1=tk.Frame(tabControl, background="white")
   tab2=tk.Frame(tabControl, background="white")
@@ -46,6 +59,8 @@ def init_window():
   tabControl.add(tab1, text='Daily')
   tabControl.add(tab2, text='Weekly')
   tabControl.pack(expand=1, fill="both")
+
+
   return window
 
 def graphTraffic(date,destination):
