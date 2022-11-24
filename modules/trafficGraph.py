@@ -51,9 +51,9 @@ def getTraffic(date, destination):
         bikes[index] += int(temp)
       temp = part
 
-  print(cars)
-  print(giants)
-  print(bikes)
+  # print(cars)
+  # print(giants)
+  # print(bikes)
   vehicles =[cars,giants,bikes]
   return vehicles
 
