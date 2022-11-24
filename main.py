@@ -55,7 +55,7 @@ def graphTraffic(date,destination):
   if (count == 1):
     ax1.clear()
     graph_pointer.destroy()
-  figure1 = plt.Figure(figsize=(6,5), dpi=100)
+  figure1 = plt.Figure(figsize=(6,6), dpi=100)
   
   figure1.clf()
   ax1 = figure1.add_subplot(111)
@@ -70,7 +70,7 @@ def graphTraffic(date,destination):
 
   graph = FigureCanvasTkAgg(figure1, window)
   graph_pointer = graph.get_tk_widget()
-  graph_pointer.place(x=310,y=100)
+  graph_pointer.place(x=310,y=90)
   df1 = df1[['time', 'bike','car','giant']].groupby('time').sum()
   df1.plot(kind='line', ax=ax1)
   maximum = max(max(bike),max(truck),max(car))
