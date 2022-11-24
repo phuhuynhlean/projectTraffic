@@ -10,7 +10,9 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from ctypes import windll
 import time
 from modules.trafficGraph import *
+from modules.dashboard import *
 import numpy as np
+
 
 locationDict = {
   "loc01":"Highway A1 - Bui Thanh Khiet Intersection",
@@ -26,25 +28,25 @@ locationDict = {
 }
 
 def init_window():
-    windll.shcore.SetProcessDpiAwareness(1)
-    #Start window (User Interface - UI)
-    window = tk.Tk()
-    window.configure(bg='white')
-    window.title("Traffic App")
-    window.geometry("1920x1200")
-    p1 = PhotoImage(file = 'traffic/traffic-app-icon.png')
-    window.iconphoto(False, p1)
-    tabControl = ttk.Notebook(window)
+  windll.shcore.SetProcessDpiAwareness(1)
 
-    tab1=ttk.Frame(tabControl)
-    tab2=ttk.Frame(tabControl)
+  #Start window (User Interface - UI)
+  window = tk.Tk()
 
-    tabControl.add(tab1, text='Daily')
-    tabControl.add(tab2, text='Weekly')
-    tabControl.pack(expand=1, fill="both")
+  window.title("Traffic App")
+  window.geometry("1050x950")
+  window.configure(bg='white')
+  p1 = PhotoImage(file = 'traffic/traffic-app-icon.png')
+  window.iconphoto(False, p1)
+  tabControl = ttk.Notebook(window)
 
+  tab1=tk.Frame(tabControl, background="white")
+  tab2=tk.Frame(tabControl, background="white")
 
-    return window
+  tabControl.add(tab1, text='Daily')
+  tabControl.add(tab2, text='Weekly')
+  tabControl.pack(expand=1, fill="both")
+  return window
 
 def graphTraffic(date,destination):
   global ax1
@@ -61,23 +63,24 @@ def graphTraffic(date,destination):
   car = getTraffic(date, destination)[0]
   truck = getTraffic(date, destination)[1]
   bike = getTraffic(date, destination)[2]
-  df1_data = {'time': label,  'bike': bike, 'car': car, 'giant': truck }
+  df1_data = {'time': label, 'bike': bike, 'car': car, 'giant': truck } 
   df1 = pd.DataFrame(df1_data)
   print(df1)
   data_analyzing(date, destination)
 
   graph = FigureCanvasTkAgg(figure1, window)
   graph_pointer = graph.get_tk_widget()
-  graph_pointer.pack(side=tk.RIGHT, fill=tk.BOTH,pady=100) 
+  graph_pointer.place(x=310,y=100)
   df1 = df1[['time', 'bike','car','giant']].groupby('time').sum()
-  df1.plot(kind='line', legend=True, ax=ax1)
+  df1.plot(kind='line', ax=ax1)
   maximum = max(max(bike),max(truck),max(car))
   ax1.set_ylim(ymin=0, ymax = maximum*1.1)
   ax1.set_title('Traffic at '+ locationDict[destination] + " ["+ date+"]")
   count = 1
-  text = Text(window, height=2, width=30)
-  text.insert(INSERT,"Hello")
-  text.place(x=window.winfo_screenwidth()/21,y=2*window.winfo_screenheight()/5)
+  
+  # text = Text(window, height=2, width=30)
+  # text.insert(INSERT,"Hello")
+  # text.place(x=window.winfo_screenwidth()/21,y=2*window.winfo_screenheight()/5)
 
 
 def data_analyzing(date, destination):
@@ -151,16 +154,19 @@ ax1 = 0
 count = 0
 graph_pointer = 0
 
-
+Dashboard(window)
 
 # location option
 location = list(locationDict.keys())
 date = getDate()
 
-title = tk.Label(text="Traffic Capture at Ho Chi Minh City", font=("Arial",24),bg='white',fg='#aa1111')
-title.place(x=200, y = 40)
+# title = tk.Label(text="Traffic Capture at Ho Chi Minh City", font=("Roboto",25),bg='white',fg='#aa1111')
+# title.place(x = 200, y = 40)
+text = Label(text="Traffic Capture at Ho Chi Minh City", font=("Roboto", 25, "bold"), fg='blue', background="white")
+text.place(x = 220, y = 40)
 
-label_date = tk.Label(text="Date: ",bg="white",anchor="e")
+
+label_date = tk.Label(text="Date: ",bg="white",anchor="w")
 label_date.place(x=5,y=155,width=90,height=30)
 
 clicked_date = StringVar()
@@ -168,7 +174,7 @@ clicked_date.set('Select the date')
 drop_date = tk.OptionMenu(window,clicked_date,*date)
 drop_date.place(x=95,y=155,width = 200,height=30)
 
-label_loc = tk.Label(text="Location: ",bg="white",anchor="e")
+label_loc = tk.Label(text="Location: ",bg="white",anchor="w")
 label_loc.place(x=5,y=205,width=90,height=30)
 
 clicked_loc = StringVar(window)
@@ -176,7 +182,8 @@ clicked_loc.set('Select the location')
 drop_loc = tk.OptionMenu(window,clicked_loc,*location)
 drop_loc.place(x=95,y=205,width = 200,height=30)
 
-button = tk.Button(text = "Graph", command= onClick )
-button.place(x=95,y=255,width=200,height=30)
+button = tk.Button(text = "Graph", command= onClick)
+button.place(x=95,y=255,width=200,height=60)
 graphTraffic("12-11","all")
+
 window.mainloop()
