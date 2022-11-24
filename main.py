@@ -172,3 +172,9 @@ button = tk.Button(text = "Graph", command= onClick )
 button.place(x=95,y=255,width=200,height=30)
 graphTraffic("12-11","all")
 window.mainloop()
+
+# Define Image
+bg = PhotoImage(file="traffic/test_picture.png")
+# #Create a label
+my_label = Label(window, image=bg)
+my_label.place(x=0, y=0, relwidth=1, relheight=1)
