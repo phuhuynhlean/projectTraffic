@@ -103,9 +103,9 @@ def graphTraffic(date,destination):
   + 'The difference between the maxium value and the minimum value ' + str(int(round(analytics[5],-1))) + '\n'
   + '75%' ' of the time vehicles is below ' + str(int(round(analytics[6],-1))) + '\n'
   )
-  text = Text(window, bd = 0,height=50, width=80,font=("Helvetica", 12))
+  text = Text(window, bd = 0,height=50, width=80,font=("Helvetica", 14))
   text.insert('1.0', sum_vehicles)
-  text.place(x=window.winfo_screenwidth()/21,y=2*window.winfo_screenheight()/5)
+  text.place(x=window.winfo_screenwidth()/21,y=5*window.winfo_screenheight()/7)
 
 
 def data_analyzing(date, destination):
