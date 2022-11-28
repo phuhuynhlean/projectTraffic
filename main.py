@@ -100,10 +100,10 @@ def graphTraffic(date,destination):
   + 'The middle value of this data is ' + str(int(round(analytics[2],-1))) + '\n'
   + 'The standard deviation of this data is ' + str(int(round(analytics[3],-1))) + '\n'
   # + 'The variance of this data is ' + str(int(round(analytics[4],-1))) + '\n'
-  + 'The coefficient of variation of this data is ' + str(int(round(analytics[5],-1))) + '\n'
+  + 'The difference between the maxium value and the minimum value ' + str(int(round(analytics[5],-1))) + '\n'
   + '75%' ' of the time vehicles is below ' + str(int(round(analytics[6],-1))) + '\n'
   )
-  text = Text(window, bd = 0,height=50, width=50,font=("Helvetica", 12))
+  text = Text(window, bd = 0,height=50, width=80,font=("Helvetica", 12))
   text.insert('1.0', sum_vehicles)
   text.place(x=window.winfo_screenwidth()/21,y=2*window.winfo_screenheight()/5)
 
