@@ -43,15 +43,15 @@ def init_window():
   tabControl = ttk.Notebook(window)
   
   #image1
-  image1 = PIL.Image.open("traffic/VGU.png")
-  new_image1 = image1.resize((150, 150), PIL.Image.ANTIALIAS)
-  test = ImageTk.PhotoImage(new_image1)
+  # image1 = PIL.Image.open("traffic/VGU.png")
+  # new_image1 = image1.resize((150, 150), PIL.Image.ANTIALIAS)
+  # test = ImageTk.PhotoImage(new_image1)
 
-  label1 = ttk.Label(image=test)
-  label1.image = test
+  # label1 = ttk.Label(image=test)
+  # label1.image = test
 
   #Position image1
-  label1.place(x=900, y=840)
+  # label1.place(x=900, y=840)
 
   tab1=tk.Frame(tabControl, background="white")
   tab2=tk.Frame(tabControl, background="white")
@@ -93,9 +93,19 @@ def graphTraffic(date,destination):
   ax1.set_title('Traffic at '+ locationDict[destination] + " ["+ date+"]")
   count = 1
   
-  # text = Text(window, height=2, width=30)
-  # text.insert(INSERT,"Hello")
-  # text.place(x=window.winfo_screenwidth()/21,y=2*window.winfo_screenheight()/5)
+  analytics = data_analyzing(date, destination)
+  # analytics.place(x=310,y=500)
+  sum_vehicles = ('There are ' + str(sum(analytics[0])) + ' vehicles in total' +'\n'
+  + 'At any moment in time, there are on average ' + str(int(round(analytics[1],-1))) + ' vehicles on the street\n'
+  + 'The middle value of this data is ' + str(int(round(analytics[2],-1))) + '\n'
+  + 'The standard deviation of this data is ' + str(int(round(analytics[3],-1))) + '\n'
+  # + 'The variance of this data is ' + str(int(round(analytics[4],-1))) + '\n'
+  + 'The difference between the maxium value and the minimum value ' + str(int(round(analytics[5],-1))) + '\n'
+  + '75%' ' of the time vehicles is below ' + str(int(round(analytics[6],-1))) + '\n'
+  )
+  text = Text(window, bd = 0,height=50, width=80,font=("Helvetica", 14))
+  text.insert('1.0', sum_vehicles)
+  text.place(x=window.winfo_screenwidth()/21,y=5*window.winfo_screenheight()/7)
 
 
 def data_analyzing(date, destination):
@@ -103,18 +113,24 @@ def data_analyzing(date, destination):
   car = getTraffic(date, destination)[0]
   truck = getTraffic(date, destination)[1]
   bike = getTraffic(date, destination)[2]
+  all = list()
+
+  for i,j,k in zip(car,truck,bike):
+    all.append(i+j+k)
 
   # Mean: Average vehicles at any moment 
   car_Mean = np.mean(car)
   bike_Mean = np.mean(bike)
   truck_Mean = np.mean(truck)
-  Mean = [car_Mean, bike_Mean, truck_Mean]
+  all_Mean = np.mean(all)
+  Mean = [car_Mean, bike_Mean, truck_Mean, all_Mean]
 
   # Median: The middle value of the set of vehicles
   car_Median = np.median(car)
   bike_Median = np.median(bike)
   truck_Median = np.median(truck)
-  Median = [car_Median, bike_Median, truck_Median]
+  all_Median = np.median(all)
+  Median = [car_Median, bike_Median, truck_Median, all_Median]
 
   # Mode
   # car_Mode = max(set(car), key = car.count)
@@ -126,32 +142,37 @@ def data_analyzing(date, destination):
   car_Std = np.std(car)
   bike_Std = np.std(bike)
   truck_Std = np.std(truck)
-  Std = [car_Std, bike_Std, truck_Std]
+  all_Std = np.std(all)
+  Std = [car_Std, bike_Std, truck_Std, all_Std]
 
   # Variance
   car_Var = np.var(car)
   bike_Var = np.var(bike)
   truck_Var = np.var(truck)
-  Var = [car_Var, bike_Var, truck_Var]
+  all_Var = np.var(all)
+  Var = [car_Var, bike_Var, truck_Var, all_Var]
 
   # Range: The difference between the highest and lowest number of vehicles
   car_Range = max(car) - min(car)
   bike_Range = max(bike) - min(bike)
   truck_Range = max(truck) - min(truck)
-  Range = [car_Range, bike_Range, truck_Range]
+  all_Range = max(all) - min(all)
+  Range = [car_Range, bike_Range, truck_Range, all_Range]
 
   # Percentile: 75% of the time the number of vehicles is less than this number
   car_Percentile = np.percentile(car, 75)
   bike_Percentile = np.percentile(bike, 75)
   truck_Percentile = np.percentile(truck, 75)
-  Percentile = [car_Percentile, bike_Percentile, truck_Percentile]
+  all_Percentile = np.percentile(all, 75)
+  Percentile = [car_Percentile, bike_Percentile, truck_Percentile, all_Percentile]
 
   # Correlation: The relationship between two variables
   # car_Correlation = np.corrcoef(car, truck)[1][0]
   # bike_Correlation = np.corrcoef(bike, truck)[1][0]
   # truck_Correlation = np.corrcoef(truck, truck)[1][0]
   # Correlation = [car_Correlation, bike_Correlation, truck_Correlation]
-  print()
+  one_list = [all,all_Mean, all_Median, all_Std, all_Var, all_Range, all_Percentile]
+  return one_list
 
 
 def get_content(entry):
