@@ -43,15 +43,15 @@ def init_window():
   tabControl = ttk.Notebook(window)
   
   #image1
-  # image1 = PIL.Image.open("traffic/VGU.png")
-  # new_image1 = image1.resize((150, 150), PIL.Image.ANTIALIAS)
-  # test = ImageTk.PhotoImage(new_image1)
+  image1 = PIL.Image.open("traffic/VGU.png")
+  new_image1 = image1.resize((150, 150), PIL.Image.ANTIALIAS)
+  test = ImageTk.PhotoImage(new_image1)
 
-  # label1 = ttk.Label(image=test)
-  # label1.image = test
+  label1 = ttk.Label(image=test)
+  label1.image = test
 
   #Position image1
-  # label1.place(x=900, y=840)
+  label1.place(x=900, y=840)
 
   tab1=tk.Frame(tabControl, background="white")
   tab2=tk.Frame(tabControl, background="white")
