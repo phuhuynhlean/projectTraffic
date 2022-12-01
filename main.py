@@ -95,12 +95,12 @@ def graphTraffic(date,destination):
   
   analytics = data_analyzing(date, destination)
   # analytics.place(x=310,y=500)
-  sum_vehicles = ('There are ' + str(sum(analytics[0])) + ' vehicles in total' +'\n'
-  + 'On average ' + str(int(round(analytics[1],-1))) + ' vehicles on the street\n'
-  + 'The Median is ' + str(int(round(analytics[2],-1))) + '\n'
-  + 'The standard deviation of this data is ' + str(int(round(analytics[3],-1))) + '\n'
+  sum_vehicles = ('Total: ' + str(sum(analytics[0])) + ' vehicles' +'\n'
+  + 'Average: ' + str(int(round(analytics[1],-1)))+'\n'
+  + 'Median: ' + str(int(round(analytics[2],-1))) + '\n'
+  + 'Standard deviation:' + str(int(round(analytics[3],-1))) + '\n'
   # + 'The variance of this data is ' + str(int(round(analytics[4],-1))) + '\n'
-  + 'The difference between the maxium value and the minimum value ' + str(int(round(analytics[5],-1))) + '\n'
+  + 'Range:' + str(int(round(analytics[5],-1))) + '\n'
   + '75%' ' of the time vehicles is below ' + str(int(round(analytics[6],-1))) + '\n'
   )
   text = Text(window, bd = 0,height=50, width=80,font=("Helvetica", 14))
