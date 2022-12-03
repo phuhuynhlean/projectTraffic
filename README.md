@@ -1,11 +1,12 @@
-### Hi there, We are a group of 7 members 👋 
+### Hi there, welcome to our project: Collect and Graph the distribution of Traffic flow in Ho Chi Minh City. 👋
+This project is still ongoing but you can still check it out right now. If you wish to contact us, check out the Contact Information below.
 
-## We are a student at Vietnamese-germany University!!
+## We are students at Vietnamese-germany University!!
 
-- 🔭 We are a second year student!
+- 🔭 We are second year student!
 - 🌱 We are currently learning everything 🤣
 - 👯 We are looking to collaborate with other content creators
-- 🥅 2020 Goals: Finish our project traffic
+- 🥅 2022 Goals: Finish our project traffic
 - ⚡ Fun fact: We love programming
 
 <br />
