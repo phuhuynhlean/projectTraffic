@@ -8,26 +8,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from ctypes import windll
-import time
-from modules.trafficGraph import *
+from modules.trafficPrepare import *
 from modules.dashboard import *
+from modules.analyzer import *
 import numpy as np
 from PIL import Image, ImageTk
 import PIL
-
-
-locationDict = {
-  "Highway A1 - Long An":"loc01",
-  "Highway 22 - Tay Ninh":"loc06",
-  "Vo Van Kiet - District 5":"loc02",
-  "Cau Bong Intersection":"loc09",
-  "Binh Trieu Intersection":"loc04",
-  "Binh Phuoc Intersection":"loc07",
-  "Linh Xuan Intersection":"loc08",
-  "Phu Mi Bridge ":"loc03",
-  "Long Thanh - Dau Giay":"loc05",
-  "all locations":"all"
-}
 
 def init_window():
   windll.shcore.SetProcessDpiAwareness(1)
@@ -40,23 +26,8 @@ def init_window():
   window.configure(bg='white')
   p1 = PhotoImage(file = 'traffic/traffic-app-icon.png')
   window.iconphoto(False, p1)
-  tabControl = ttk.Notebook(window)
   
-  image1 = Image.open("traffic/VGU.png")
-  new_image1 = image1.resize((150, 150), PIL.Image.ANTIALIAS)
-  test = ImageTk.PhotoImage(new_image1)
-  label1 =Label(image=test,borderwidth=0, relief="flat")
-  label1.image = test
-  label1.place(x=850, y=820)
-
-  tab1=tk.Frame(tabControl, background="white")
-  tab2=tk.Frame(tabControl, background="white")
-
-  tabControl.add(tab1, text='Daily')
-  tabControl.add(tab2, text='Weekly')
-  tabControl.pack(expand=1, fill="both")
-
-
+  
   return window
 
 def graphTraffic(date,destination):
@@ -71,21 +42,16 @@ def graphTraffic(date,destination):
   figure1.clf()
   ax1 = figure1.add_subplot(111)
   label = ['08:00\n-9:00', '09:00\n-10:00', '10:00\n-11:00', '11:00\n-12:00', '12:00\n-13:00','13:00\n-14:00','14:00\n-15:00','15:00\n-16:00','16:00\n-17:00']
-  car = getTraffic(date, destination)[0]
-  truck = getTraffic(date, destination)[1]
-  bike = getTraffic(date, destination)[2]
-  df1_data = {'time': label, 'bike': bike, 'car': car, 'giant': truck } 
+  traffic_data = getTraffic(date,destination)
+  car = traffic_data[0];  giant = traffic_data[1];  bike = traffic_data[2]
+  df1_data = {'time': label, 'bike': bike, 'car': car, 'giant': giant } 
   df1 = pd.DataFrame(df1_data)
-  print(df1)
-  data_analyzing(date, destination)
 
   graph = FigureCanvasTkAgg(figure1, window)
   graph_pointer = graph.get_tk_widget()
-  graph_pointer.place(x=310,y=90)
-  df1 = df1[['time', 'bike','car','giant']].groupby('time').sum()
-  df1.plot(kind='line', ax=ax1)
-  maximum = max(max(bike),max(truck),max(car))
-  ax1.set_ylim(ymin=0, ymax = maximum*1.1)
+  graph_pointer.place(x=310,y=150)
+  df1 = df1[['time', 'bike','car','giant']].groupby('time').sum().plot(kind='line', ax=ax1)
+  ax1.set_ylim(ymin=0, ymax = max(max(bike),max(giant),max(car))*1.1)
   
   for i in locationDict:
     if locationDict[i]==destination:
@@ -93,88 +59,12 @@ def graphTraffic(date,destination):
   print(locationTxt)
   ax1.set_title('Traffic at '+ locationTxt + " ["+ date+"]")
   count = 1
-  
-  # analytics = data_analyzing(date, destination)
-  # # analytics.place(x=310,y=500)
-  # sum_vehicles = ('There are ' + str(sum(analytics[0])) + ' vehicles in total' +'\n'
-  # + 'On average ' + str(int(round(analytics[1],-1))) + ' vehicles on the street\n'
-  # + 'The Median is ' + str(int(round(analytics[2],-1))) + '\n'
-  # + 'The standard deviation of this data is ' + str(int(round(analytics[3],-1))) + '\n'
-  # # + 'The variance of this data is ' + str(int(round(analytics[4],-1))) + '\n'
-  # + 'The difference between the maxium value and the minimum value ' + str(int(round(analytics[5],-1))) + '\n'
-  # + '75%' ' of the time vehicles is below ' + str(int(round(analytics[6],-1))) + '\n'
-  # )
-  # text = Text(window, bd = 0,height=50, width=80,font=("Helvetica", 14))
-  # text.insert('1.0', sum_vehicles)
-  # text.place(x=window.winfo_screenwidth()/21,y=5*window.winfo_screenheight()/7)
-
-
-def data_analyzing(date, destination):
-
-  car = getTraffic(date, destination)[0]
-  truck = getTraffic(date, destination)[1]
-  bike = getTraffic(date, destination)[2]
-  all = list()
-
-  for i,j,k in zip(car,truck,bike):
-    all.append(i+j+k)
-
-  # Mean: Average vehicles at any moment 
-  car_Mean = np.mean(car)
-  bike_Mean = np.mean(bike)
-  truck_Mean = np.mean(truck)
-  all_Mean = np.mean(all)
-  Mean = [car_Mean, bike_Mean, truck_Mean, all_Mean]
-
-  # Median: The middle value of the set of vehicles
-  car_Median = np.median(car)
-  bike_Median = np.median(bike)
-  truck_Median = np.median(truck)
-  all_Median = np.median(all)
-  Median = [car_Median, bike_Median, truck_Median, all_Median]
-
-  # Mode
-  # car_Mode = max(set(car), key = car.count)
-  # bike_Mode = max(set(bike), key = bike.count)
-  # truck_Mode = max(set(truck), key = truck.count)
-  # Mode = [car_Mode, bike_Mode, truck_Mode]
-
-  # Standard Deviation: The amount of vehicles that varies from the mean.
-  car_Std = np.std(car)
-  bike_Std = np.std(bike)
-  truck_Std = np.std(truck)
-  all_Std = np.std(all)
-  Std = [car_Std, bike_Std, truck_Std, all_Std]
-
-  # Variance
-  car_Var = np.var(car)
-  bike_Var = np.var(bike)
-  truck_Var = np.var(truck)
-  all_Var = np.var(all)
-  Var = [car_Var, bike_Var, truck_Var, all_Var]
-
-  # Range: The difference between the highest and lowest number of vehicles
-  car_Range = max(car) - min(car)
-  bike_Range = max(bike) - min(bike)
-  truck_Range = max(truck) - min(truck)
-  all_Range = max(all) - min(all)
-  Range = [car_Range, bike_Range, truck_Range, all_Range]
-
-  # Percentile: 75% of the time the number of vehicles is less than this number
-  car_Percentile = np.percentile(car, 75)
-  bike_Percentile = np.percentile(bike, 75)
-  truck_Percentile = np.percentile(truck, 75)
-  all_Percentile = np.percentile(all, 75)
-  Percentile = [car_Percentile, bike_Percentile, truck_Percentile, all_Percentile]
-
-  # Correlation: The relationship between two variables
-  # car_Correlation = np.corrcoef(car, truck)[1][0]
-  # bike_Correlation = np.corrcoef(bike, truck)[1][0]
-  # truck_Correlation = np.corrcoef(truck, truck)[1][0]
-  # Correlation = [car_Correlation, bike_Correlation, truck_Correlation]
-  one_list = [all,all_Mean, all_Median, all_Std, all_Var, all_Range, all_Percentile]
-  return one_list
-
+  print(traffic_data)
+  analysisTxt = data_analyzing(traffic_data)
+  text = Text(window, padx=15, pady=15,height=20, width=25,bg= sidebar_color, fg= sidebar_text, font=("Times New Roman",12))
+  text.config(bd = 3)
+  text.insert('1.0', analysisTxt)
+  text.place(x=5, y=450)
 
 def get_content(entry):
     content=entry.get()
@@ -194,36 +84,28 @@ ax1 = 0
 count = 0
 graph_pointer = 0
 
-Dashboard(window)
-
-# location option
+dashboard = Dashboard(window)
 location = list(locationDict.keys())
 date = getDate()
 
-# title = tk.Label(text="Traffic Capture at Ho Chi Minh City", font=("Roboto",25),bg='white',fg='#aa1111')
-# title.place(x = 200, y = 40)
-text = Label(text="Traffic Capture at Ho Chi Minh City", font=("Roboto", 25, "bold"), fg='red', background="white")
-text.place(x = 220, y = 40)
-
-
-label_date = tk.Label(text="Date: ",bg="white",anchor="w")
-label_date.place(x=5,y=155,width=90,height=30)
+label_date = tk.Label(text="Date: ",bg=sidebar_color,fg=sidebar_text,anchor="e")
+label_date.place(x=sidebar_x,y=sidebar_y,width=70,height=30)
 
 clicked_date = StringVar()
 clicked_date.set('Select the date')
-drop_date = tk.OptionMenu(window,clicked_date,*date)
-drop_date.place(x=95,y=155,width = 200,height=30)
+drop_date = OptionMenu(window,clicked_date,*date)
+drop_date.place(x=sidebar_x+70,y=sidebar_y,width = 200,height=30)
 
-label_loc = tk.Label(text="Location: ",bg="white",anchor="w")
-label_loc.place(x=5,y=205,width=90,height=30)
+label_loc = tk.Label(text="Area: ",bg=sidebar_color,fg=sidebar_text,anchor="e")
+label_loc.place(x=sidebar_x,y=sidebar_y+50,width=70,height=30)
 
 clicked_loc = StringVar(window)
 clicked_loc.set('Select the location')
-drop_loc = tk.OptionMenu(window,clicked_loc,*location)
-drop_loc.place(x=95,y=205,width = 200,height=30)
+drop_loc = OptionMenu(window,clicked_loc,*location)
+drop_loc.place(x=sidebar_x+70,y=sidebar_y+50,width = 200,height=30)
 
-button = tk.Button(text = "Graph", command= onClick)
-button.place(x=95,y=255,width=200,height=60)
+button = tk.Button(text = "Graph", command= onClick, cursor="hand2")
+button.place(x=sidebar_x +70,y=sidebar_y+95,width=200,height=45)
 graphTraffic("12-11","all")
 
 window.mainloop()

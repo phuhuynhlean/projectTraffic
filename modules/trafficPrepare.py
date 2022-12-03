@@ -50,7 +50,6 @@ def getTraffic(date, destination):
       if ("motorcycle" in part) or ("bicycle" in part):
         bikes[index] += int(temp)
       temp = part
-
   # print(cars)
   # print(giants)
   # print(bikes)
@@ -67,3 +66,16 @@ def getDate():
               file = '\t\t\t\t'+ file +'-2022'+'\t\t\t\t'
               date.append(file)
   return date
+
+locationDict = {
+  "Highway A1 - Long An":"loc01",
+  "Highway 22 - Tay Ninh":"loc06",
+  "Vo Van Kiet - District 5":"loc02",
+  "Cau Bong Intersection":"loc09",
+  "Binh Trieu Intersection":"loc04",
+  "Binh Phuoc Intersection":"loc07",
+  "Linh Xuan Intersection":"loc08",
+  "Phu Mi Bridge ":"loc03",
+  "Long Thanh - Dau Giay":"loc05",
+  "all locations":"all"
+}
