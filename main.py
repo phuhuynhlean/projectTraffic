@@ -17,16 +17,16 @@ import PIL
 
 
 locationDict = {
-  "loc01":"Highway A1 - Bui Thanh Khiet Intersection",
-  "loc02":"Vo Van Kiet - Cao Van Lau Intersection",
-  "loc03":"Phu Mi Bridge (Vo Chi Cong)",
-  "loc04":"Binh Trieu Intersection (Highway 13)",
-  "loc05":"Long Thanh - Dau Giay Expressway",
-  "loc06":"Highway 22 - Gia Phai Intersection",
-  "loc07":"Binh Phuoc Intersection (Highway 13)",
-  "loc08":"Linh Xuan Intersection (Highway A1)",
-  "loc09":"Cau Bong Intersection",
-  "all":"all locations"
+  "Highway A1 - Long An":"loc01",
+  "Highway 22 - Tay Ninh":"loc06",
+  "Vo Van Kiet - District 5":"loc02",
+  "Cau Bong Intersection":"loc09",
+  "Binh Trieu Intersection":"loc04",
+  "Binh Phuoc Intersection":"loc07",
+  "Linh Xuan Intersection":"loc08",
+  "Phu Mi Bridge ":"loc03",
+  "Long Thanh - Dau Giay":"loc05",
+  "all locations":"all"
 }
 
 def init_window():
@@ -42,16 +42,12 @@ def init_window():
   window.iconphoto(False, p1)
   tabControl = ttk.Notebook(window)
   
-  #image1
-  # image1 = PIL.Image.open("traffic/VGU.png")
-  # new_image1 = image1.resize((150, 150), PIL.Image.ANTIALIAS)
-  # test = ImageTk.PhotoImage(new_image1)
-
-  # label1 = ttk.Label(image=test)
-  # label1.image = test
-
-  #Position image1
-  # label1.place(x=900, y=840)
+  image1 = Image.open("traffic/VGU.png")
+  new_image1 = image1.resize((150, 150), PIL.Image.ANTIALIAS)
+  test = ImageTk.PhotoImage(new_image1)
+  label1 =Label(image=test,borderwidth=0, relief="flat")
+  label1.image = test
+  label1.place(x=850, y=820)
 
   tab1=tk.Frame(tabControl, background="white")
   tab2=tk.Frame(tabControl, background="white")
@@ -90,22 +86,27 @@ def graphTraffic(date,destination):
   df1.plot(kind='line', ax=ax1)
   maximum = max(max(bike),max(truck),max(car))
   ax1.set_ylim(ymin=0, ymax = maximum*1.1)
-  ax1.set_title('Traffic at '+ locationDict[destination] + " ["+ date+"]")
+  
+  for i in locationDict:
+    if locationDict[i]==destination:
+      locationTxt=i
+  print(locationTxt)
+  ax1.set_title('Traffic at '+ locationTxt + " ["+ date+"]")
   count = 1
   
-  analytics = data_analyzing(date, destination)
-  # analytics.place(x=310,y=500)
-  sum_vehicles = ('There are ' + str(sum(analytics[0])) + ' vehicles in total' +'\n'
-  + 'On average ' + str(int(round(analytics[1],-1))) + ' vehicles on the street\n'
-  + 'The Median is ' + str(int(round(analytics[2],-1))) + '\n'
-  + 'The standard deviation of this data is ' + str(int(round(analytics[3],-1))) + '\n'
-  # + 'The variance of this data is ' + str(int(round(analytics[4],-1))) + '\n'
-  + 'The difference between the maxium value and the minimum value ' + str(int(round(analytics[5],-1))) + '\n'
-  + '75%' ' of the time vehicles is below ' + str(int(round(analytics[6],-1))) + '\n'
-  )
-  text = Text(window, bd = 0,height=50, width=80,font=("Helvetica", 14))
-  text.insert('1.0', sum_vehicles)
-  text.place(x=window.winfo_screenwidth()/21,y=5*window.winfo_screenheight()/7)
+  # analytics = data_analyzing(date, destination)
+  # # analytics.place(x=310,y=500)
+  # sum_vehicles = ('There are ' + str(sum(analytics[0])) + ' vehicles in total' +'\n'
+  # + 'On average ' + str(int(round(analytics[1],-1))) + ' vehicles on the street\n'
+  # + 'The Median is ' + str(int(round(analytics[2],-1))) + '\n'
+  # + 'The standard deviation of this data is ' + str(int(round(analytics[3],-1))) + '\n'
+  # # + 'The variance of this data is ' + str(int(round(analytics[4],-1))) + '\n'
+  # + 'The difference between the maxium value and the minimum value ' + str(int(round(analytics[5],-1))) + '\n'
+  # + '75%' ' of the time vehicles is below ' + str(int(round(analytics[6],-1))) + '\n'
+  # )
+  # text = Text(window, bd = 0,height=50, width=80,font=("Helvetica", 14))
+  # text.insert('1.0', sum_vehicles)
+  # text.place(x=window.winfo_screenwidth()/21,y=5*window.winfo_screenheight()/7)
 
 
 def data_analyzing(date, destination):
@@ -180,8 +181,11 @@ def get_content(entry):
     return str(content)
 
 def onClick():
-    date=get_content(clicked_date)
-    loc=get_content(clicked_loc)
+    date = get_content(clicked_date).strip('\t')
+    date = date.strip('-2022')
+    loc = get_content(clicked_loc)
+    loc = locationDict[loc]
+
     graphTraffic(date,loc) 
 
 

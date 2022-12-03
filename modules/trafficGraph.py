@@ -63,5 +63,7 @@ def getDate():
   for r, d, f in os.walk(thisdir+"\\traffic"):
       for file in f:
           if file.endswith(".txt"):
-              date.append(file.strip('.txt'))
+              file = file.strip('.txt')
+              file = '\t\t\t\t'+ file +'-2022'+'\t\t\t\t'
+              date.append(file)
   return date
