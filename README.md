@@ -5,11 +5,11 @@ This project is still ongoing but you can still check it out right now. If you w
 ---
 ## In order to have a well - preparation to follow us in the presentation, everyone can download or set up some following stuffs:
 Technology needed: Python 3.8.5 or higher; Python library: Tkinter, Matplotlib, pandas, numpy, Pillow; 
-1. [Download Yolov5 from github][1]
-2. [Tool support labelling][2]
-3. [Dataset with 81 different classes][3]
-4. [Dataset with transportation which our group using][4]
-5. [Link to HCM CCTV which we use to capture][5]
+- 1. [Download Yolov5 from github][1]
+- 2. [Tool support labelling][2]
+- 3. [Dataset with 81 different classes][3]
+- 4. [Dataset with transportation which our group using][4]
+- 5. [Link to HCM CCTV which we use to capture][5]
 ---
 </details>
 [1]: https://github.com/ultralytics/yolov5
