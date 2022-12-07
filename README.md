@@ -1,7 +1,7 @@
 ### Hi there, welcome to our project: Collect and Graph the distribution of Traffic flow in Ho Chi Minh City. 👋
 This project is still ongoing but you can still check it out right now. If you wish to contact us, check out the Contact Information below.
 
-## We are students at Vietnamese-germany University!!
+## We are students at Vietnamese-Germany University!!
 
 - 🔭 We are second year student!
 - 🌱 We are currently learning everything 🤣
@@ -32,3 +32,4 @@ This project is still ongoing but you can still check it out right now. If you w
 [minhthuan]: https://www.facebook.com/lowkeynenemkhongthethay
 [jsontrinh]: https://www.facebook.com/profile.php?id=100008612346891
 [baohuy]: https://www.facebook.com/profile.php?id=100078422291956
+
