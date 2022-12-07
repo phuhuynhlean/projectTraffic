@@ -12,12 +12,6 @@ Technology needed: Python 3.8.5 or higher; Python library: Tkinter, Matplotlib, 
 - [Dataset with transportation which our group using][4]<br />
 - [Link to HCM CCTV which we use to capture][5]<br />
 ---
-</details>
-[1]: https://github.com/ultralytics/yolov5
-[2]: https://github.com/heartexlabs/labelImg
-[3]: https://www.kaggle.com/datasets/ultralytics/coco128
-[4]: https://drive.google.com/drive/folders/1EuSmR0u8qjlEPFqwz8gy0GN65eyVT99m
-[5]: http://giaothong.hochiminhcity.gov.vn/
 
 ## We are students at Vietnamese-German University!!
 
@@ -52,4 +46,8 @@ Technology needed: Python 3.8.5 or higher; Python library: Tkinter, Matplotlib, 
 [minhthuan]: https://www.facebook.com/lowkeynenemkhongthethay
 [jsontrinh]: https://www.facebook.com/profile.php?id=100008612346891
 [baohuy]: https://www.facebook.com/profile.php?id=100078422291956
-
+[1]: https://github.com/ultralytics/yolov5
+[2]: https://github.com/heartexlabs/labelImg
+[3]: https://www.kaggle.com/datasets/ultralytics/coco128
+[4]: https://drive.google.com/drive/folders/1EuSmR0u8qjlEPFqwz8gy0GN65eyVT99m
+[5]: http://giaothong.hochiminhcity.gov.vn/
