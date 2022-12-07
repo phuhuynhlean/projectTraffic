@@ -20,14 +20,14 @@ class Dashboard:
     def __init__(self, window):
         self.window = window
         
-        tabControl = ttk.Notebook(window)
+        # tabControl = ttk.Notebook(window)
         
-        tab1=tk.Frame(tabControl, background="white")
-        tab2=tk.Frame(tabControl, background="white")
+        # tab1=tk.Frame(tabControl, background="white")
+        # tab2=tk.Frame(tabControl, background="white")
 
-        tabControl.add(tab1, text='Daily')
-        tabControl.add(tab2, text='Weekly')
-        tabControl.pack(expand=1, fill="both")
+        # tabControl.add(tab1, text='Daily')
+        # tabControl.add(tab2, text='Weekly')
+        # tabControl.pack(expand=1, fill="both")
 
         # header
         self.header = Frame(self.window, bg=header_color)
