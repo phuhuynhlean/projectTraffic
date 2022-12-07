@@ -2,10 +2,10 @@
 This project is still ongoing but you can still check it out right now. If you wish to contact us, check out the Contact Information below.
 
 <br />
----
 ## In order to have a well - preparation to follow us in the presentation, everyone can download or set up some following stuffs:
 Technology needed: Python 3.8.5 or higher; Python library: Tkinter, Matplotlib, pandas, numpy, Pillow; 
 <br />
+---
 - [Download Yolov5 from github][1]<br />
 - [Tool support labelling][2]<br />
 - [Dataset with 81 different classes][3]<br />
