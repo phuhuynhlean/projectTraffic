@@ -10,7 +10,7 @@ Technology needed: Python 3.8.5 or higher; Python library: Tkinter, Matplotlib, 
 - [Download Yolov5 from Github][1]<br />
 - [Labelling Supporting Tool][2]<br />
 - [Dataset with 81 different classes][3]<br />
-- [Dataset with transportation which our group using][4]<br />
+- [Dataset with transportation which our group uses][4]<br />
 - [Link to HCM CCTV which we use to capture][5]<br />
 ---
 </details>
