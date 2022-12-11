@@ -8,7 +8,10 @@ The idea of this project is to collect data from [public CCTV provided by the De
 ## How to use
 
 To check out our project, install the  [Github][github] of this project and run the ***main.py***. It will open a window as shown here:<br />
-![Traffic App](/traffic/app.png "Traffic App")<br /> When the *Graph* button is clicked, the app will draw a chart of the traffic at the selected location and date with a mini analysis of the data beside.<br/>📅
+
+<img src="/traffic/app.png" alt="Traffic App" style="width:750px; margin: auto; display: block;"/><br />
+
+When the *Graph* button is clicked, the app will draw a chart of the traffic at the selected location and date with a mini analysis of the data beside.📅 <br />
 
 If you wish to see the realtime data, you need to collect it first. To do it, run the ***trafficCapture.py*** file in the folder *module* (remember to change your saved location). After collected the data you want, you need to detect it using ***detect.py*** with the following command in the terminal (assumming you store the at data/images/folder):
 ```
